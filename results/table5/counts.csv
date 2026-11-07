@@ -1,0 +1,8 @@
+application,records,blocking,non_blocking,shared_memory_flags,message_passing_flags,ambiguous_records,unclassified_or_invalid_records
+Docker,44,21,23,28,16,0,0
+Kubernetes,34,17,17,21,14,1,0
+etcd,37,21,16,18,19,0,0
+CockroachDB,28,12,16,23,5,0,0
+gRPC,23,11,12,12,11,0,0
+BoltDB,5,3,2,4,1,0,0
+Total,171,85,86,106,66,1,0

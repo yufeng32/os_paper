@@ -1,0 +1,45 @@
+# Table 5: Paper vs. Ours
+
+Source: Tu et al., [ASPLOS 2019 paper](https://songlh.github.io/paper/go-study.pdf), Table 5, PDF p. 5.
+
+Behavior counts are record counts. Root-cause columns below count original 1 flags independently;
+they are overlapping marginals when a record has both flags. They are not repaired exclusive categories.
+
+| Application | Metric | Paper | Ours | Ours - Paper | Absolute difference |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Docker | blocking | 21 | 21 | 0 | 0 |
+| Docker | non_blocking | 23 | 23 | 0 | 0 |
+| Docker | shared_memory_flags | 28 | 28 | 0 | 0 |
+| Docker | message_passing_flags | 16 | 16 | 0 | 0 |
+| Kubernetes | blocking | 17 | 17 | 0 | 0 |
+| Kubernetes | non_blocking | 17 | 17 | 0 | 0 |
+| Kubernetes | shared_memory_flags | 20 | 21 | 1 | 1 |
+| Kubernetes | message_passing_flags | 14 | 14 | 0 | 0 |
+| etcd | blocking | 21 | 21 | 0 | 0 |
+| etcd | non_blocking | 16 | 16 | 0 | 0 |
+| etcd | shared_memory_flags | 18 | 18 | 0 | 0 |
+| etcd | message_passing_flags | 19 | 19 | 0 | 0 |
+| CockroachDB | blocking | 12 | 12 | 0 | 0 |
+| CockroachDB | non_blocking | 16 | 16 | 0 | 0 |
+| CockroachDB | shared_memory_flags | 23 | 23 | 0 | 0 |
+| CockroachDB | message_passing_flags | 5 | 5 | 0 | 0 |
+| gRPC | blocking | 11 | 11 | 0 | 0 |
+| gRPC | non_blocking | 12 | 12 | 0 | 0 |
+| gRPC | shared_memory_flags | 12 | 12 | 0 | 0 |
+| gRPC | message_passing_flags | 11 | 11 | 0 | 0 |
+| BoltDB | blocking | 3 | 3 | 0 | 0 |
+| BoltDB | non_blocking | 2 | 2 | 0 | 0 |
+| BoltDB | shared_memory_flags | 4 | 4 | 0 | 0 |
+| BoltDB | message_passing_flags | 1 | 1 | 0 | 0 |
+| Total | blocking | 85 | 85 | 0 | 0 |
+| Total | non_blocking | 86 | 86 | 0 | 0 |
+| Total | shared_memory_flags | 105 | 106 | 1 | 1 |
+| Total | message_passing_flags | 66 | 66 | 0 | 0 |
+
+## Evidence and verdict
+
+Parsed 171 records; see records.csv for sheet/row provenance, anomalies.csv for unresolved labels, and row-audit.csv for every included/skipped row.
+The behavior totals match. Root-cause marginals are only partially reproduced if a difference or ambiguous label remains.
+No missing label was guessed and no source workbook summary was used as an observation.
+This is a deterministic data audit, not an independent reclassification or a runtime detector experiment.
+Repeated counts do not supply independent samples or a meaningful standard deviation.

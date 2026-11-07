@@ -1,0 +1,65 @@
+{
+  "fresh_run": {
+    "dataset_url": "https://github.com/system-pclub/go-concurrency-bugs.git",
+    "reference_commit": "f2655063a2278cff64a51121b73801eda05fdcfa",
+    "workbook": "bug table.xlsx",
+    "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+    "verification": "exact workbook bytes; local Git HEAD not required",
+    "python": "3.12.13",
+    "openpyxl": "3.1.5",
+    "os": "Windows",
+    "os_release": "11",
+    "os_version": "10.0.26200",
+    "architecture": "AMD64",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "utc_time": "2026-11-07T18:04:10.292725+00:00",
+    "analysis_seconds": 0.231874,
+    "records": 171,
+    "anomalies": 3
+  },
+  "local_run": {
+    "dataset_url": "https://github.com/system-pclub/go-concurrency-bugs.git",
+    "reference_commit": "f2655063a2278cff64a51121b73801eda05fdcfa",
+    "workbook": "bug table.xlsx",
+    "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+    "verification": "exact workbook bytes; local Git HEAD not required",
+    "python": "3.12.13",
+    "openpyxl": "3.1.5",
+    "os": "Windows",
+    "os_release": "11",
+    "os_version": "10.0.26200",
+    "architecture": "AMD64",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "utc_time": "2026-11-07T18:04:43.931333+00:00",
+    "analysis_seconds": 0.198722,
+    "records": 171,
+    "anomalies": 3
+  },
+  "identical_output_sha256": {
+    "records.csv": "ca7441359c4438f49e25960de08ce797253c1b62f4791b56b67eaac7279e501f",
+    "counts.csv": "da10108955e0e144dd57914bbfa9daf3f3cf817195f57738fcade61eaa02f0a1",
+    "comparison.csv": "7e17eed4e687a83d98dd1dc3d77b6ab89bfb3040cc1175c73596ab7e8d92fb4e",
+    "anomalies.csv": "95dd41a0cdc630b4f0efecee52c0da0bb03b122ea83e3b3e4af24103b17d7805",
+    "row-audit.csv": "a3c18f15ca7749db226eecd06dd2e6a3966a7d3d529be865fdfd115354859878",
+    "comparison.md": "eb065d75bfbf605afebe7101a3583bdca956caa9cc0a6f570ae9ba759a23f13c"
+  },
+  "unit_tests_passed": 6,
+  "row_dispositions": {
+    "header": 2,
+    "blank": 18,
+    "included": 171,
+    "summary_or_annotation": 18
+  },
+  "checks_passed": [
+    "fresh virtual environment installation",
+    "pip check",
+    "fresh network acquisition at pinned commit",
+    "local input route from another working directory",
+    "Unicode path with spaces",
+    "six deterministic outputs byte-identical",
+    "modified workbook rejected before output",
+    "dirty checkout rejected without deleting marker",
+    "record IDs unique and match included row audit",
+    "data/venv/cache ignored and result CSVs retained"
+  ]
+}

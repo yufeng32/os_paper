@@ -1,0 +1,4 @@
+record_id,sheet,row,raw_identifier,code,detail
+blocking:35,blocking,35,e98c8e7685f4475e091f9186606098039c2fc250,root_cause_ambiguous_both,No exclusive root cause inferred; original flags retained.
+blocking:90,blocking,90,boltdb#392,non_hash_identifier,Retained as a record; identifier is not a full commit hash.
+blocking:92,blocking,92,boltdb#240,non_hash_identifier,Retained as a record; identifier is not a full commit hash.
