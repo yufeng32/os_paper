@@ -1,0 +1,9 @@
+[mode=fixed] goroutines at start: 1
+[mode=fixed] after ListAndWatch call #1: goroutines = 1
+[mode=fixed] after ListAndWatch call #2: goroutines = 1
+[mode=fixed] after ListAndWatch call #3: goroutines = 1
+[mode=fixed] after ListAndWatch call #4: goroutines = 1
+[mode=fixed] after ListAndWatch call #5: goroutines = 1
+[mode=fixed] goroutines at end: 1 (start was 1, growth = 0)
+[mode=fixed] goroutines parked in chan receive/select at end: 0
+[mode=fixed] VERDICT: NO BLOCKING - goroutine count back to baseline

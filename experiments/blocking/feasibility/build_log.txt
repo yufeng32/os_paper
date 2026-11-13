@@ -1,0 +1,128 @@
+BUILD / RUN LOG — blocking bug feasibility investigation (case b01, Kubernetes ListAndWatch resync leak)
+Machine: Windows 11 10.0.26200, i7-1260P, Go 1.20.14 windows/amd64, git 2.56.0.windows.2
+Date: 2026-11-13
+This file records what was actually executed and what actually came back. Nothing here is
+reconstructed "expected" output.
+
+Log hygiene note: absolute paths that the Go runtime printed (they contained a personal home
+directory) were replaced with <PROJECT_ROOT>/ before this file was committed. Nothing else in the
+logs was touched — every number, stack frame, line number and verdict is exactly as produced by the
+run. The same substitution was applied to the files in logs/; if you re-run the reproducer yourself,
+your own paths will appear instead.
+
+== STEP 1: try to clone the dataset repo (system-pclub/go-concurrency-bugs) ==
+$ git clone --depth 1 https://github.com/system-pclub/go-concurrency-bugs.git gcb_dataset
+Cloning into 'gcb_dataset'...
+error: RPC failed; curl 56 Recv failure: Connection was reset
+fatal: expected flush after ref listing
+RESULT: git transport to github.com blocked/reset on this network (exit 128).
+
+== STEP 2: fall back to HTTPS archive download + GitHub REST API ==
+$ Invoke-WebRequest https://codeload.github.com/system-pclub/go-concurrency-bugs/zip/refs/heads/master -OutFile gcb_dataset.zip
+RESULT: OK, 268967 bytes.
+$ GET https://api.github.com/repos/system-pclub/go-concurrency-bugs/contents/
+RESULT: HTTP 200, root entries:
+  README.md           (file, 8545)
+  blocking-bugs       (dir)
+  bug table.xlsx      (file, 67285)
+  non-blocking-bugs   (dir)
+
+== STEP 3: locate and identify the case ==
+Dataset layout: blocking-bugs/<project>/<fix-commit-sha>.txt, each file is the full `git show`
+of the FIX commit. Kubernetes has 16 blocking bug entries.
+Selected case file: blocking-bugs/kubernetes/991674380b7773d73afaeafeac6242bf3b6e6001.txt
+Commit title in that file: "Fix resync goroutine leak in ListAndWatch"
+Diff scope in that file: pkg/client/cache/reflector.go only (+4 / -0 lines)
+
+$ GET https://api.github.com/repos/kubernetes/kubernetes/commits/991674380b7773d73afaeafeac6242bf3b6e6001
+fix commit sha: 991674380b7773d73afaeafeac6242bf3b6e6001
+author: Tatsuhiro Tsujikawa | date: 2016-10-25
+message: Fix resync goroutine leak in ListAndWatch
+parent sha: 6abb4723571fc6b9e4dc05807511569dfc865f83
+files: pkg/client/cache/reflector.go
+RESULT: fix commit and buggy (parent) commit both resolved. Exit 0.
+
+$ GET https://api.github.com/repos/kubernetes/kubernetes/commits/6abb4723571fc6b9e4dc05807511569dfc865f83
+buggy commit date: 2016-12-02 | message first line: "Merge pull request #37720 from freehan/lb-src-update"
+RESULT: OK.
+
+== STEP 4: fetch the buggy source file (real historical code, not rebuilt by hand) ==
+$ GET https://raw.githubusercontent.com/kubernetes/kubernetes/6abb4723.../pkg/client/cache/reflector.go
+RESULT: FAILED — "The SSL connection could not be established" (raw.githubusercontent.com blocked).
+$ GET https://api.github.com/repos/kubernetes/kubernetes/contents/pkg/client/cache/reflector.go?ref=6abb4723...
+RESULT: OK, base64-decoded to reflector_buggy_6abb4723.go, 14191 bytes.
+Grep on the file confirmed the buggy select block at lines 261-277 (see case_info.md section 3).
+
+== STEP 5: check whether the historical tree can be built ==
+$ GET contents/go.mod?ref=6abb4723...            -> HTTP 404  (no go.mod)
+$ GET contents/Godeps/Godeps.json?ref=6abb4723... -> file, 80849 bytes
+$ GET contents/vendor?ref=6abb4723...             -> directory
+$ GET contents/build?ref=6abb4723...               -> HTTP 404
+RESULT: 2016-era GOPATH + Godeps vendored build. Building the whole Kubernetes tree with
+Go 1.20 in module mode is not feasible here; documented as a deviation in environment.md.
+
+== STEP 6: build the standalone reconstruction ==
+$ go version
+go version go1.20.14 windows/amd64
+$ cd experiments/blocking/feasibility/reproducer
+$ go build -o repro.exe .
+RESULT: BUILD OK (exit 0, no warnings). Module: blockingfeasibility, go 1.20.
+
+== STEP 7: first run attempt (found a bug in my own harness, recorded for honesty) ==
+$ .\repro.exe -mode=buggy -calls=5        (healthy: leaked 5 goroutines)
+$ run.ps1 with `& $exe -mode=$mode -calls=5`
+RESULT: the flag value arrived as the literal string "$mode", so BOTH the "buggy" and the "fixed"
+runs executed the buggy code path — every run said "BLOCKING REPRODUCED".
+Diagnosis: PowerShell did not expand the variable inside the single token `-mode=$mode` when
+passed to a native executable.
+FIX applied to run.ps1: pass the arguments as separate tokens: `& $exe ("-mode=" + $mode) "-calls=5"`.
+Re-verified manually: `.repro.exe -mode=fixed -calls=5` -> "[mode=fixed] goroutines = 1" (no leak).
+This mistake is kept in the log because it is exactly the kind of harness bug that silently
+falsifies an experiment (a "fixed" mode that never ran).
+
+== STEP 8: full run, 3 repetitions per variant ==
+$ powershell -File experiments/blocking/feasibility/reproducer/run.ps1
+(tail of the console capture, full text in logs/run_all_console.txt)
+
+[mode=buggy] goroutines at start: 1
+[mode=buggy] after ListAndWatch call #1: goroutines = 2
+[mode=buggy] after ListAndWatch call #2: goroutines = 3
+[mode=buggy] after ListAndWatch call #3: goroutines = 4
+[mode=buggy] after ListAndWatch call #4: goroutines = 5
+[mode=buggy] after ListAndWatch call #5: goroutines = 6
+[mode=buggy] goroutines at end: 6 (start was 1, growth = 5)
+[mode=buggy] goroutines parked in chan receive/select at end: 5
+[mode=buggy] VERDICT: BLOCKING REPRODUCED - 5 goroutine(s) stuck, cannot make progress
+
+goroutine 7 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+[mode=fixed] goroutines at start: 1
+[mode=fixed] after ListAndWatch call #1: goroutines = 1
+[mode=fixed] after ListAndWatch call #2: goroutines = 1
+[mode=fixed] after ListAndWatch call #3: goroutines = 1
+[mode=fixed] after ListAndWatch call #4: goroutines = 1
+[mode=fixed] after ListAndWatch call #5: goroutines = 1
+[mode=fixed] goroutines at end: 1 (start was 1, growth = 0)
+[mode=fixed] goroutines parked in chan receive/select at end: 0
+[mode=fixed] VERDICT: NO BLOCKING - goroutine count back to baseline
+
+Per-run files: logs/run_buggy_1.txt, run_buggy_2.txt, run_buggy_3.txt,
+               logs/run_fixed_1.txt, run_fixed_2.txt, run_fixed_3.txt
+
+== STEP 9: aggregate result (3 repetitions each) ==
+buggy variant: goroutine growth = 5, 5, 5   -> mean 5.00, SD 0.00 goroutines per 5 ListAndWatch calls
+                                                     (= 1.00 leaked goroutine per call)
+fixed variant: goroutine growth = 0, 0, 0   -> mean 0.00, SD 0.00
+The stacks of the leaked goroutines all read `[select]` at main.go:83, i.e. parked on the
+`select { case <-resyncCh: case <-neverClosed: }` statement — exactly the statement the fix
+patched.
+
+== STEP 10: what was NOT done in this step (stated, not hidden) ==
+- The whole historical Kubernetes tree was never compiled (see STEP 5 / environment.md).
+- No upstream regression test exists in the fix commit, so no "original test" was run.
+- Go's built-in deadlock detector and `-race` were NOT run on this case yet; that belongs to the
+  detector stage (Table 8 / Table 12), not to this feasibility week.

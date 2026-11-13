@@ -1,0 +1,126 @@
+== go version ==
+go version go1.20.14 windows/amd64
+
+== go build ==
+build ok
+
+== running mode=buggy repetition 1 ==
+[mode=buggy] goroutines at start: 1
+[mode=buggy] after ListAndWatch call #1: goroutines = 2
+[mode=buggy] after ListAndWatch call #2: goroutines = 3
+[mode=buggy] after ListAndWatch call #3: goroutines = 4
+[mode=buggy] after ListAndWatch call #4: goroutines = 5
+[mode=buggy] after ListAndWatch call #5: goroutines = 6
+[mode=buggy] goroutines at end: 6 (start was 1, growth = 5)
+[mode=buggy] goroutines parked in chan receive/select at end: 5
+[mode=buggy] VERDICT: BLOCKING REPRODUCED - 5 goroutine(s) stuck, cannot make progress
+
+--- goroutine dump (first 3 stacks) ---
+goroutine 1 [running]:
+main.main()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:152 +0x675
+
+goroutine 7 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+goroutine 9 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+
+== running mode=buggy repetition 2 ==
+[mode=buggy] goroutines at start: 1
+[mode=buggy] after ListAndWatch call #1: goroutines = 2
+[mode=buggy] after ListAndWatch call #2: goroutines = 3
+[mode=buggy] after ListAndWatch call #3: goroutines = 4
+[mode=buggy] after ListAndWatch call #4: goroutines = 5
+[mode=buggy] after ListAndWatch call #5: goroutines = 6
+[mode=buggy] goroutines at end: 6 (start was 1, growth = 5)
+[mode=buggy] goroutines parked in chan receive/select at end: 5
+[mode=buggy] VERDICT: BLOCKING REPRODUCED - 5 goroutine(s) stuck, cannot make progress
+
+--- goroutine dump (first 3 stacks) ---
+goroutine 1 [running]:
+main.main()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:152 +0x675
+
+goroutine 7 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+goroutine 9 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+
+== running mode=buggy repetition 3 ==
+[mode=buggy] goroutines at start: 1
+[mode=buggy] after ListAndWatch call #1: goroutines = 2
+[mode=buggy] after ListAndWatch call #2: goroutines = 3
+[mode=buggy] after ListAndWatch call #3: goroutines = 4
+[mode=buggy] after ListAndWatch call #4: goroutines = 5
+[mode=buggy] after ListAndWatch call #5: goroutines = 6
+[mode=buggy] goroutines at end: 6 (start was 1, growth = 5)
+[mode=buggy] goroutines parked in chan receive/select at end: 5
+[mode=buggy] VERDICT: BLOCKING REPRODUCED - 5 goroutine(s) stuck, cannot make progress
+
+--- goroutine dump (first 3 stacks) ---
+goroutine 1 [running]:
+main.main()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:152 +0x675
+
+goroutine 7 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+goroutine 9 [select]:
+main.listAndWatch.func1()
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:83 +0x13e
+created by main.listAndWatch
+	<PROJECT_ROOT>/experiments/blocking/feasibility/reproducer/main.go:71 +0x1cd
+
+
+== running mode=fixed repetition 1 ==
+[mode=fixed] goroutines at start: 1
+[mode=fixed] after ListAndWatch call #1: goroutines = 1
+[mode=fixed] after ListAndWatch call #2: goroutines = 1
+[mode=fixed] after ListAndWatch call #3: goroutines = 1
+[mode=fixed] after ListAndWatch call #4: goroutines = 1
+[mode=fixed] after ListAndWatch call #5: goroutines = 1
+[mode=fixed] goroutines at end: 1 (start was 1, growth = 0)
+[mode=fixed] goroutines parked in chan receive/select at end: 0
+[mode=fixed] VERDICT: NO BLOCKING - goroutine count back to baseline
+
+== running mode=fixed repetition 2 ==
+[mode=fixed] goroutines at start: 1
+[mode=fixed] after ListAndWatch call #1: goroutines = 1
+[mode=fixed] after ListAndWatch call #2: goroutines = 1
+[mode=fixed] after ListAndWatch call #3: goroutines = 1
+[mode=fixed] after ListAndWatch call #4: goroutines = 1
+[mode=fixed] after ListAndWatch call #5: goroutines = 1
+[mode=fixed] goroutines at end: 1 (start was 1, growth = 0)
+[mode=fixed] goroutines parked in chan receive/select at end: 0
+[mode=fixed] VERDICT: NO BLOCKING - goroutine count back to baseline
+
+== running mode=fixed repetition 3 ==
+[mode=fixed] goroutines at start: 1
+[mode=fixed] after ListAndWatch call #1: goroutines = 1
+[mode=fixed] after ListAndWatch call #2: goroutines = 1
+[mode=fixed] after ListAndWatch call #3: goroutines = 1
+[mode=fixed] after ListAndWatch call #4: goroutines = 1
+[mode=fixed] after ListAndWatch call #5: goroutines = 1
+[mode=fixed] goroutines at end: 1 (start was 1, growth = 0)
+[mode=fixed] goroutines parked in chan receive/select at end: 0
+[mode=fixed] VERDICT: NO BLOCKING - goroutine count back to baseline
+
