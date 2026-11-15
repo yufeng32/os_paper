@@ -1,0 +1,12 @@
+.git/
+.venv/
+venv/
+data/
+.cache/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.pdf
+*.xlsx
