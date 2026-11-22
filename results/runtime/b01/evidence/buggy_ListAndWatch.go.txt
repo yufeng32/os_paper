@@ -1,0 +1,50 @@
+// EXCERPT — kubernetes/kubernetes, pkg/client/cache/reflector.go
+// Commit: 6abb4723571fc6b9e4dc05807511569dfc865f83  (buggy version, lines 233-278 of the file)
+// License: Apache License 2.0 (original project). Excerpt reproduced for academic replication.
+// Bug fixed later by commit 991674380b7773d73afaeafeac6242bf3b6e6001.
+func (r *Reflector) ListAndWatch(stopCh <-chan struct{}) error {
+	glog.V(3).Infof("Listing and watching %v from %s", r.expectedType, r.name)
+	var resourceVersion string
+	resyncCh, cleanup := r.resyncChan()
+	defer cleanup()
+
+	// Explicitly set "0" as resource version - it's fine for the List()
+	// to be served from cache and potentially be delayed relative to
+	// etcd contents. Reflector framework will catch up via Watch() eventually.
+	options := v1.ListOptions{ResourceVersion: "0"}
+	list, err := r.listerWatcher.List(options)
+	if err != nil {
+		return fmt.Errorf("%s: Failed to list %v: %v", r.name, r.expectedType, err)
+	}
+	listMetaInterface, err := meta.ListAccessor(list)
+	if err != nil {
+		return fmt.Errorf("%s: Unable to understand list result %#v: %v", r.name, list, err)
+	}
+	resourceVersion = listMetaInterface.GetResourceVersion()
+	items, err := meta.ExtractList(list)
+	if err != nil {
+		return fmt.Errorf("%s: Unable to understand list result %#v (%v)", r.name, list, err)
+	}
+	if err := r.syncWith(items, resourceVersion); err != nil {
+		return fmt.Errorf("%s: Unable to sync list result: %v", r.name, err)
+	}
+	r.setLastSyncResourceVersion(resourceVersion)
+
+	resyncerrc := make(chan error, 1)
+	go func() {
+		for {
+			select {
+			case <-resyncCh:
+			case <-stopCh:
+				return
+			}
+			glog.V(4).Infof("%s: forcing resync", r.name)
+			if err := r.store.Resync(); err != nil {
+				resyncerrc <- err
+				return
+			}
+			cleanup()
+			resyncCh, cleanup = r.resyncChan()
+		}
+	}()
+

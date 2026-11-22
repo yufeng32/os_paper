@@ -10,3 +10,6 @@ __pycache__/
 !.env.example
 *.pdf
 *.xlsx
+
+# Go reproducer build artifacts
+scripts/dynamic/**/repro.exe

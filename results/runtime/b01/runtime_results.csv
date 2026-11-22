@@ -1,0 +1,7 @@
+case_id,project,bug_inducing_commit,fix_commit,get_code_success,full_repo_compile_status,reproducer_build_status,variant,run_id,calls,goroutine_growth,goroutines_blocked,blocking_occur,mean_growth,sd_growth,note
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,buggy,1,5,5,5,true,5.00,0.00,5 leaked goroutines parked in [select] after ListAndWatch returned
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,buggy,2,5,5,5,true,5.00,0.00,identical to run 1 (same stack location)
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,buggy,3,5,5,5,true,5.00,0.00,identical to run 1 (same stack location)
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,fixed,1,5,0,0,false,0.00,0.00,cancelCh closed by defer on return so the child goroutine exits
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,fixed,2,5,0,0,false,0.00,0.00,identical to run 1
+b01,kubernetes,6abb4723571fc6b9e4dc05807511569dfc865f83,991674380b7773d73afaeafeac6242bf3b6e6001,true,not_attempted,success,fixed,3,5,0,0,false,0.00,0.00,identical to run 1
