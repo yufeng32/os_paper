@@ -1,0 +1,11 @@
+{
+  "dataset_url": "https://github.com/system-pclub/go-concurrency-bugs.git",
+  "reference_commit": "f2655063a2278cff64a51121b73801eda05fdcfa",
+  "workbook": "bug table.xlsx",
+  "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+  "blocking_records": 85,
+  "python": "3.12.3",
+  "openpyxl": "3.1.5",
+  "utc_time": "2026-11-21T08:22:07.916544+00:00",
+  "analysis_seconds": 0.026144
+}

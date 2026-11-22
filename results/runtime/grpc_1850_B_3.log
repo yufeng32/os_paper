@@ -1,0 +1,16 @@
+[case] mode=B goroutines=2 1 goroutine blocked acquiring a leaked flow-control token
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [select (no cases)]:
+main.finish({0x9d41d0, 0x1}, 0x0, {0x92bc60, 0x39})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:61 +0x188
+main.caseGrpc1850({0x9d41d0, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:135 +0xb5
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:39 +0x22f
+
+goroutine 6 [chan receive]:
+main.caseGrpc1850.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:132 +0x1f
+created by main.caseGrpc1850
+	D:/OSproject/os_paper/scripts/dynamic/main.go:131 +0x8e

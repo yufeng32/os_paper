@@ -1,0 +1,28 @@
+[case] mode=A goroutines=3 keepalive holds the mutex while waiting; the next stream blocks on the mutex
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan receive]:
+main.finish({0x9d41c8, 0x1}, 0x1, {0x92c35c, 0x4c})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:64 +0x179
+main.caseGrpc1459({0x9d41c8, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:182 +0x114
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:45 +0x1fe
+
+goroutine 6 [chan receive]:
+main.caseGrpc1459.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:173 +0x54
+created by main.caseGrpc1459
+	D:/OSproject/os_paper/scripts/dynamic/main.go:171 +0x9e
+
+goroutine 18 [sync.Mutex.Lock]:
+sync.runtime_SemacquireMutex(0x0?, 0x0?, 0x0?)
+	D:/tools/go/src/runtime/sema.go:77 +0x26
+sync.(*Mutex).lockSlow(0xc00001e138)
+	D:/tools/go/src/sync/mutex.go:171 +0x165
+sync.(*Mutex).Lock(...)
+	D:/tools/go/src/sync/mutex.go:90
+main.caseGrpc1459.func2()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:178 +0x38
+created by main.caseGrpc1459
+	D:/OSproject/os_paper/scripts/dynamic/main.go:177 +0xea

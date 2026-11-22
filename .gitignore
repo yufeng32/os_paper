@@ -7,6 +7,6 @@ data/
 .env
 .env.*
 !.env.example
-
+*.exe
 # Go reproducer build artifacts (dynamic harness under scripts/dynamic/)
 scripts/dynamic/**/repro.exe

@@ -1,0 +1,16 @@
+[case] mode=A goroutines=2 consumer waits for a later event while the producer is blocked sending an earlier one
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan receive]:
+main.finish({0x9d41c8, 0x1}, 0x1, {0x92c494, 0x55})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:64 +0x179
+main.caseMoby27782({0x9d41c8, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:162 +0xa5
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:43 +0x265
+
+goroutine 6 [chan send]:
+main.caseMoby27782.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:157 +0x29
+created by main.caseMoby27782
+	D:/OSproject/os_paper/scripts/dynamic/main.go:156 +0x76
