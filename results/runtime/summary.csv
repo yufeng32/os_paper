@@ -1,0 +1,9 @@
+case,category,A_verdict,A_detected_of_3,B_verdict,B_detected_of_3
+docker_17176,Mutex,exit0_not_detected,0,detected,3
+etcd_5509,Mutex,detected,3,detected,3
+etcd_4474,Chan,exit0_not_detected,0,detected,3
+grpc_1850,Chan,exit0_not_detected,0,detected,3
+grpc_1293,Chan,exit0_not_detected,0,detected,3
+moby_27782,Chan_w,detected,3,detected,3
+grpc_1459,Chan_w,detected,3,detected,3
+moby_256,Lib,hung_not_detected,0,hung_not_detected,0

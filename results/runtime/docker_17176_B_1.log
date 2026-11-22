@@ -1,0 +1,22 @@
+[case] mode=B goroutines=2 1 goroutine blocked on a leaked mutex
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [select (no cases)]:
+main.finish({0x9d41d0, 0x1}, 0x0, {0x9296aa, 0x25})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:61 +0x188
+main.caseDocker17176({0x9d41d0, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:79 +0xb5
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:33 +0x299
+
+goroutine 6 [sync.Mutex.Lock]:
+sync.runtime_SemacquireMutex(0x0?, 0x0?, 0x0?)
+	D:/tools/go/src/runtime/sema.go:77 +0x26
+sync.(*Mutex).lockSlow(0xc00001e138)
+	D:/tools/go/src/sync/mutex.go:171 +0x165
+sync.(*Mutex).Lock(...)
+	D:/tools/go/src/sync/mutex.go:90
+main.caseDocker17176.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:75 +0x38
+created by main.caseDocker17176
+	D:/OSproject/os_paper/scripts/dynamic/main.go:74 +0x8e

@@ -1,0 +1,16 @@
+[case] mode=B goroutines=2 1 goroutine blocked receiving a message that is never sent
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [select (no cases)]:
+main.finish({0x9d41d0, 0x1}, 0x0, {0x92bd7d, 0x3a})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:61 +0x188
+main.caseGrpc1293({0x9d41d0, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:147 +0xa5
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:41 +0x1d3
+
+goroutine 6 [chan receive]:
+main.caseGrpc1293.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:144 +0x1f
+created by main.caseGrpc1293
+	D:/OSproject/os_paper/scripts/dynamic/main.go:143 +0x76

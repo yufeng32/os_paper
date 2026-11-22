@@ -1,0 +1,1 @@
+[case] mode=A goroutines=2 1 goroutine blocked sending on an unbuffered channel

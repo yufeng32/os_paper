@@ -1,0 +1,8 @@
+application,Mutex,RWMutex,Wait,Chan,Chan_w,Lib,Total
+Docker,9,0,3,5,2,2,21
+Kubernetes,6,2,0,3,6,0,17
+etcd,5,0,0,10,5,1,21
+CockroachDB,4,3,0,5,0,0,12
+gRPC,2,0,0,6,2,1,11
+BoltDB,2,0,0,0,1,0,3
+Total,28,5,3,29,16,4,85

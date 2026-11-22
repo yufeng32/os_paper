@@ -1,0 +1,16 @@
+[case] mode=B goroutines=2 1 goroutine blocked sending on an unbuffered channel
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [select (no cases)]:
+main.finish({0x9d41d0, 0x1}, 0x0, {0x92b606, 0x34})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:61 +0x188
+main.caseEtcd4474({0x9d41d0, 0x1})
+	D:/OSproject/os_paper/scripts/dynamic/main.go:120 +0xa5
+main.main()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:37 +0x175
+
+goroutine 6 [chan send]:
+main.caseEtcd4474.func1()
+	D:/OSproject/os_paper/scripts/dynamic/main.go:117 +0x25
+created by main.caseEtcd4474
+	D:/OSproject/os_paper/scripts/dynamic/main.go:116 +0x76
