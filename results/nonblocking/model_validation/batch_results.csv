@@ -1,0 +1,4 @@
+case,cause,batch,complete,control_pass,eligible,detected,race_runs,symptom_runs,first_detection_run
+cockroachdb_d5a604c99d9e,anonymous,1,1,1,1,1,100,0,1
+cockroachdb_d5a604c99d9e,anonymous,2,1,1,1,1,100,0,1
+cockroachdb_d5a604c99d9e,anonymous,3,1,1,1,1,100,0,1

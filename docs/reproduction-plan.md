@@ -1,5 +1,14 @@
 # Reproduction Method, Findings, and Next Milestone
 
+**Historical note:** the milestone descriptions below document the original
+Table 5 stage. Blocking runtime results were subsequently delivered in Week 3.
+The 2026-11-24 non-blocking addition follows the same pattern-reconstruction
+method; its implementation and commands are in
+[`scripts/dynamic/nonblocking/README.md`](../scripts/dynamic/nonblocking/README.md).
+It audits all 86 non-blocking records, assesses all 23 workbook-flagged candidates,
+and keeps the natural race-detector matrix separate from controlled diagnostics.
+The current scope declaration and measured results supersede the old next-step text.
+
 ## Completed first milestone: Table 5 audit
 
 Input: the authors' [dataset](https://github.com/system-pclub/go-concurrency-bugs) at `f2655063a2278cff64a51121b73801eda05fdcfa`. Workbook SHA-256: `a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235`.

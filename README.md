@@ -1,6 +1,6 @@
 # Go Concurrency Bug Study: Course Reproduction
 
-Our CS340 Operating Systems project studies **Understanding Real-World Concurrency Bugs in Go** (Tu, Liu, Song, and Zhang, ASPLOS 2019). This repository reconstructs the paper's **classification (Table 5)**, its **blocking-bug root causes and fix strategies (Tables 6–7)**, and a **reduced-scale evaluation of the built-in deadlock detector (Table 8)**. The historical 2016-era applications are not built as-is; the runtime part is a pattern-level reconstruction of each bug's control flow (stated in [Scope and deviations](docs/reproduction-scope.md)). Every reported number is traceable to a script and a log in this repository.
+Our CS340 Operating Systems project studies **Understanding Real-World Concurrency Bugs in Go** (Tu, Liu, Song, and Zhang, ASPLOS 2019). This repository audits the paper's **classification (Table 5)**, **blocking root causes and fixes (Tables 6–7)**, and **non-blocking root causes and fixes (Tables 9–11)**. Runtime experiments evaluate the **built-in deadlock detector (Table 8, reduced scale)** and the **race detector (Table 12, a different candidate cohort)**. The historical applications are not built as-is; both runtime experiments use pattern-level reconstructions (stated in [Scope and deviations](docs/reproduction-scope.md)). Every reported number is traceable to a script and a log in this repository.
 
 - [Paper](https://songlh.github.io/paper/go-study.pdf) / [DOI](https://doi.org/10.1145/3297858.3304069)
 - [Authors' dataset](https://github.com/system-pclub/go-concurrency-bugs), pinned to `f2655063a2278cff64a51121b73801eda05fdcfa`
@@ -61,6 +61,31 @@ The detector fires only when **all** goroutines are asleep. Each case runs in tw
 
 **Partially supported.** The paper's qualitative claim (the detector finds only a minority, and fails for background-leak and non-Go-primitive cases) is reproduced; the exact 2/21 rate is not, because the two cases the paper's detector caught (BoltDB#392/#240) have no patch in the pinned dataset and could not be reconstructed. The A→B gap (3→7) isolates the detector's all-asleep precondition. Details and per-case verdicts in [runtime comparison](results/runtime/comparison.md).
 
+### Non-blocking static audit (Tables 9–11)
+
+The same pinned workbook yields **86 non-blocking records**. All **36 Table 9,
+30 Table 10 and 42 Table 11 non-total cells match**. Primitive columns overlap:
+Channel includes `channel-patch`/`select-patch`, and Misc includes
+`once-patch`/`go-patch`, counting each union once per record. This recovers
+annotations and arithmetic, not independently validated classifications.
+See [audit outputs](results/nonblocking/) and
+[the non-blocking experiment guide](scripts/dynamic/nonblocking/README.md).
+
+### Non-blocking runtime (Table 12 comparison, different cohort)
+
+All **23 workbook-flagged candidates** were assessed through buggy/fixed
+patterns: 14 show a target behavioral failure, 8 show only a target data race,
+and 1 historical timer candidate remains unobserved. Three batches of 100
+runs per case/variant/build produced **27,600 executions**, **0 infrastructure
+errors**, and **23/23 clean fixed controls**. Each batch reports target races
+for **18/23 candidates (78.26%; batch SD 0.00 percentage points)**.
+
+The paper uses 20 cases and reports 10; its exact membership is not established
+here. These figures describe different reconstructed workloads and do not show
+an improvement in detector accuracy. The unobserved candidate is not an
+established detector miss. See [results and limitations](results/nonblocking/README.md)
+and the [per-case comparison](results/nonblocking/runtime/comparison.md).
+
 ## Reproducibility (environment)
 
 The environment is pinned in `Dockerfile` (`python:3.12.13-slim-bookworm`) and `.python-version`. `Makefile` wraps the existing scripts; it does not add a second analysis pipeline. The runtime experiment additionally needs Go 1.20.14 (`D:\tools\go` on the recorded machine) and a C compiler for `-race`; see `scripts/dynamic/README.md`.
@@ -86,6 +111,26 @@ python -m venv .venv
 
 `b01` (`kubernetes#35672`, a supplementary case outside the 21-bug set) has its own reproducer in `scripts/dynamic/b01-listwatch/` and results in `results/runtime/b01/`.
 
+**Non-blocking experiments (Tables 9–12):** the static audit uses the existing
+Python dependencies. Runtime needs the portable Go 1.20.14 baseline and a C
+compiler. The preparation script checks the official archive's SHA-256 before
+extraction. Commands and interpretation are in the
+[non-blocking guide](scripts/dynamic/nonblocking/README.md).
+
+```powershell
+.venv/Scripts/python.exe scripts/analyze_nonblocking.py
+.venv/Scripts/python.exe scripts/dynamic/nonblocking/prepare_toolchain.py
+.venv/Scripts/python.exe scripts/dynamic/nonblocking/run.py
+.venv/Scripts/python.exe scripts/dynamic/nonblocking/run.py --schedule controlled --runs 3 --batches 1
+.venv/Scripts/python.exe scripts/dynamic/nonblocking/verify.py
+```
+
+Use `--output <new-directory>` to repeat an experiment without overwriting its
+evidence. The workbook selects **23 candidate commits**, while the paper's
+Table 12 uses 20; no exact 20-case cohort is claimed. Per-case buggy/fixed
+results and observations accompany detector rates. See the measured
+[runtime comparison](results/nonblocking/runtime/comparison.md).
+
 ## Outputs and verification
 
 | Output | Meaning |
@@ -95,6 +140,9 @@ python -m venv .venv
 | `results/table7/` | Table 7 audit: cause × fix cross-tab, `comparison.md` |
 | `results/runtime/` | Table 8: `candidates.csv`, `raw_results.csv`, `summary.csv`, `comparison.md`, one log per run |
 | `scripts/dynamic/b01-listwatch/` + `results/runtime/b01/` | Supplementary b01 case (`kubernetes#35672`): reproducer and 3-run buggy/fixed logs |
+| `results/nonblocking/table9/`, `table10/`, `table11/` | Full static audit of the 86 non-blocking records |
+| `results/nonblocking/runtime/` | Natural non-blocking experiment: manifest, environment, raw results, per-batch comparison and archived logs |
+| `results/nonblocking/diagnostic/` | Separate controlled scheduling diagnostics, excluded from natural detection rates |
 
 Expected: `run.py` prints **171 records and 3 anomalies**; `analyze_table6_7.py` prints Table 6 totals `[28,5,3,29,16,4]` and Table 7 totals `[31,14,9,21,10]` with **0 differing cells**; `run_all.py` prints A = 3/8, B = 7/8 detected. Tests: `.venv/Scripts/python.exe -m unittest discover -s tests -v`.
 

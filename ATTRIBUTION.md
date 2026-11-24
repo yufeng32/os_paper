@@ -6,7 +6,7 @@
 2. Dataset: <https://github.com/system-pclub/go-concurrency-bugs>, pinned to commit `f2655063a2278cff64a51121b73801eda05fdcfa`.
 3. The workbook `bug table.xlsx` and the historical patch records belong to the original authors. The pinned upstream tree contains no license file.
 4. We fetch that tree for analysis only. We do not vendor the workbook or patch files, and we do not modify any upstream file. Data directories are ignored by `.gitignore`.
-5. Reference values for Tables 5, 6, 7 and 8 are transcribed from the paper and compared in `scripts/analyze.py`, `scripts/analyze_table6_7.py` and `results/runtime/`.
+5. Reference values for Tables 5–12 are transcribed from the paper and compared in the static-audit scripts and runtime results. Table 12 is compared with an explicitly different 23-candidate reconstruction cohort.
 
 ## Code written by this group
 
@@ -25,6 +25,18 @@
 | Existing files changed in Week 3 | `README.md`, `docs/reproduction-scope.md`, `ATTRIBUTION.md` (documentation only; no analysis code or Week 1 results changed) |
 
 ## Contribution statement (draft, to be reconciled with the git log)
+
+**2026-11-24 non-blocking addition (local, not yet committed):**
+`scripts/analyze_nonblocking.py` reuses the existing record parser and input
+verification for Tables 9–11. `scripts/dynamic/nonblocking/` adds authored
+buggy/fixed pattern reconstructions, a race-detector runner, a verified portable
+toolchain preparation script, per-case patch mappings and archive verification.
+`results/nonblocking/` contains the new evidence. Additional upstream inspection
+recovered the Bolt merge diff and confirmed historical Go 1.7 context formatting;
+links and blob identities are recorded, without vendoring historical source.
+AI assisted implementation and documentation. Student attribution for this
+addition remains to be reconciled with the actual contributor's future commit;
+no contribution is assigned to another member by inference.
 
 The final report's contribution statement must match the actual commits. Rows marked "planned" are not yet evidence of contribution.
 

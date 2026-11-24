@@ -1,0 +1,25 @@
+{
+  "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+  "runs": 100,
+  "batches": 3,
+  "timeout": 10,
+  "schedule": "natural",
+  "parallel_processes": 8,
+  "source_sha256": {
+    "channels.go": "7be03ddee5d74d01d7b40a9885bf416696047abb1955ad3c7ed4859a52b6142c",
+    "go.mod": "5853df76c3a0f9bf96e86a9bb0fab6c106d7b1f0c506f06c5456d6e826dd857f",
+    "main.go": "63c387349528572f5060f15433bdac6a8fa3f05b4b2000e4a41fd832e9c741d3",
+    "shared.go": "9129f1710d2be48cedffc400019ae5d269b5d45844b942a3f98c4a60da6b45f9"
+  },
+  "driver_sha256": {
+    "run.py": "03bd560899560dcee7a8641c1fd22207223f75a0c55888ae8c66cded64a4da3a",
+    "cases.py": "270d05a75b075ec8efc59bde7ab40578bd4189597edd59150f79d0bc182ebd6a",
+    "verify.py": "a2a7a01ac806ee1bebd38865d4966c4fd6f2d6a8f16794685b9af36d22a0d084"
+  },
+  "started_utc": "2026-11-24T14:26:52.509666+00:00",
+  "status": "interrupted_after_checkpoint_metadata_corruption",
+  "excluded_from_final_experiment": true,
+  "reason": "A data-racing composite slice copy corrupted RESULT case bytes. Preserve this attempt; replace only the slice-header publication with a scalar count model before a fresh full matrix.",
+  "logs_zip_sha256": "8888c407d0c57240c6f707e1236a9370b93755789e4a7263f69d17ad7e7ec867",
+  "preserved_utc": "2026-11-24T14:34:47.937544+00:00"
+}

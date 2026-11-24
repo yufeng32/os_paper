@@ -1,0 +1,5 @@
+cause,paper_used,paper_detected,ours_attempted,ours_eligible,ours_detected_any_batch,ours_behavior_reproduced,ours_not_observed
+traditional,13,7,0,0,0,0,0
+anonymous,4,3,1,1,1,0,0
+shared_lib,2,0,0,0,0,0,0
+channel,1,0,0,0,0,0,0

@@ -1,0 +1,8 @@
+{
+  "archive_logs_verified": 27600,
+  "matrix_cells_expected": 27600,
+  "case_summaries_verified": 23,
+  "all_matrix_cells_present": true,
+  "infrastructure_errors": 0,
+  "archive_sha256": "baba8de9ef91ec02df87c7ca75f7c820b4d64e8e87540ab4469d67580c381291"
+}

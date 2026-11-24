@@ -1,0 +1,2 @@
+case,cause,bug_id,commit,schedule,status,plain_symptoms,race_symptoms,target_race_runs,buggy_plain_runs,buggy_race_runs,control_pass,complete
+cockroachdb_d5a604c99d9e,anonymous,cockroachdb#17112,d5a604c99d9e9741f7f2242de204abde1b47c2d9,natural,race_reproduced_only,0,0,300,300,300,1,1

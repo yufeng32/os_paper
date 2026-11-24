@@ -1,0 +1,26 @@
+[
+  {
+    "row": 63,
+    "application": "CockroachDB",
+    "bug_id": "cockroachdb#17112",
+    "commit": "d5a604c99d9e9741f7f2242de204abde1b47c2d9",
+    "cause": "anonymous",
+    "strategy": "Adds",
+    "primitives": "Mutex",
+    "raw_primitive_flags": "lock-patch",
+    "reproduced_flag": 1,
+    "case_id": "cockroachdb_d5a604c99d9e",
+    "repository": "cockroachdb/cockroach",
+    "source_url": "https://github.com/cockroachdb/cockroach/commit/d5a604c99d9e9741f7f2242de204abde1b47c2d9",
+    "dataset_patch": "non-blocking-bugs/cockroachdb/d5a604c99d9e9741f7f2242de204abde1b47c2d9.txt",
+    "patch_present": true,
+    "patch_has_diff": true,
+    "patch_sha256": "f84fb4ee65aad6cef773938e31c95cbf8561bc4399d5dc5dc75c96d5e63591a7",
+    "symbol": "checkpointFiles",
+    "trigger": "checkpoint copies files after releasing mu",
+    "fix": "take snapshot under the existing lock",
+    "limitation": "Models slice publication as an immutable backing array plus scalar published length, preserving the missed-lock read but excluding multiword-header tearing. A preliminary composite-header version corrupted RESULT metadata; its source and logs are retained separately and excluded from final results.",
+    "evidence": "pinned dataset patch",
+    "status": "implemented_pattern"
+  }
+]

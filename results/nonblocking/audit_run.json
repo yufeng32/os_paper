@@ -1,0 +1,26 @@
+{
+  "reference_commit": "f2655063a2278cff64a51121b73801eda05fdcfa",
+  "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+  "utc_time": "2026-11-24T14:08:20.354255+00:00",
+  "records": 86,
+  "candidate_count": 23,
+  "candidate_causes": {
+    "channel": 4,
+    "traditional": 13,
+    "anonymous": 4,
+    "shared_lib": 2
+  },
+  "differing_cells": {
+    "table9": 0,
+    "table10": 0,
+    "table11": 0
+  },
+  "anomalies": [],
+  "paper_table12": {
+    "traditional": 13,
+    "anonymous": 4,
+    "shared_lib": 2,
+    "channel": 1
+  },
+  "cohort_note": "Workbook flags identify 23 records, not the paper's 20. No 20-case identity is inferred."
+}

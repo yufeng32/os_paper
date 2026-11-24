@@ -1,0 +1,37 @@
+{
+  "schedule": "natural",
+  "runs_per_combination": 100,
+  "batches": 3,
+  "process_runs": 27600,
+  "expected_process_runs": 27600,
+  "complete_cases": 23,
+  "control_pass_cases": 23,
+  "statuses": {
+    "behavior_reproduced": 14,
+    "not_observed": 1,
+    "race_reproduced_only": 8
+  },
+  "batch_detection": [
+    {
+      "batch": 1,
+      "eligible": 23,
+      "detected": 18,
+      "rate": 0.782608695652174
+    },
+    {
+      "batch": 2,
+      "eligible": 23,
+      "detected": 18,
+      "rate": 0.782608695652174
+    },
+    {
+      "batch": 3,
+      "eligible": 23,
+      "detected": 18,
+      "rate": 0.782608695652174
+    }
+  ],
+  "detection_rate_mean": 0.782608695652174,
+  "detection_rate_sample_sd": 0.0,
+  "infrastructure_errors": 0
+}

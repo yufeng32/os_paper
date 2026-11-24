@@ -1,0 +1,33 @@
+{
+  "plain": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "build",
+      "-o",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-build\\plain.exe",
+      "."
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 2.018676,
+    "stdout": "",
+    "stderr": "",
+    "sha256": "c8a85c9305b8114ecd48ca4d93059770ead458744612c0fc64203423e9423739"
+  },
+  "race": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "build",
+      "-o",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-build\\race.exe",
+      "-race",
+      "."
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 2.289004,
+    "stdout": "",
+    "stderr": "",
+    "sha256": "618aa865cc313b31c7ddc4928e451a44901f52c8f1af1ec788f9a248c2e73bb4"
+  }
+}

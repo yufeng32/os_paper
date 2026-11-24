@@ -1,0 +1,8 @@
+group,Adds,Moves,Bypass,Private,Misc
+traditional,27,4,5,10,0
+anonymous,5,2,0,4,0
+waitgroup,3,2,1,0,0
+shared_lib,1,2,1,0,2
+channel,6,7,3,0,0
+message_lib,0,0,0,0,1
+Total,42,17,10,14,3

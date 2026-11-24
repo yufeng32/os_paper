@@ -4,9 +4,13 @@ __pycache__/
 data/
 .cache/
 .pytest_cache/
+tmp/
 .env
 .env.*
 !.env.example
 *.exe
 # Go reproducer build artifacts (dynamic harness under scripts/dynamic/)
 scripts/dynamic/**/repro.exe
+
+# Individual non-blocking logs remain local; the runner retains every log in logs.zip.
+results/nonblocking/**/logs/

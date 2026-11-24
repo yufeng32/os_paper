@@ -1,0 +1,23 @@
+{
+  "workbook_sha256": "a0e5f0103600b3c394b86cb975f403789366f0190312019fae648de0cd8e3235",
+  "runs": 100,
+  "batches": 3,
+  "timeout": 10,
+  "schedule": "natural",
+  "parallel_processes": 8,
+  "source_sha256": {
+    "channels.go": "7be03ddee5d74d01d7b40a9885bf416696047abb1955ad3c7ed4859a52b6142c",
+    "go.mod": "5853df76c3a0f9bf96e86a9bb0fab6c106d7b1f0c506f06c5456d6e826dd857f",
+    "main.go": "63c387349528572f5060f15433bdac6a8fa3f05b4b2000e4a41fd832e9c741d3",
+    "shared.go": "54e86eae89dfdecff1e3f3c14ae1a9d086f9af2f3903bdc04151deff26d9c72f"
+  },
+  "driver_sha256": {
+    "run.py": "03bd560899560dcee7a8641c1fd22207223f75a0c55888ae8c66cded64a4da3a",
+    "cases.py": "19855f7432fba3f2ef02a28826ecb8ae570f63c0fe935c7523cd8c6f2270b17e",
+    "verify.py": "a2a7a01ac806ee1bebd38865d4966c4fd6f2d6a8f16794685b9af36d22a0d084"
+  },
+  "started_utc": "2026-11-24T14:34:31.308132+00:00",
+  "logs_zip_sha256": "f1e36aab0c21b6261bc75581dbda1187e5cbf2a42ef95447a41c1a8ef7098ee1",
+  "finished_utc": "2026-11-24T14:34:57.411955+00:00",
+  "elapsed_seconds": 26.096
+}

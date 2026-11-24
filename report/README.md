@@ -7,6 +7,12 @@ table, a contribution statement and an AI usage statement. This skeleton is
 added in Week 3; sections are filled in Week 4 and the Final milestone. No
 claim verdict may be written before the underlying measurement exists.
 
+**2026-11-24 update:** the report now includes the non-blocking audit and the
+separate 23-candidate buggy/fixed experiment. Its original Week 3 section list
+below is historical. Current evidence is in `results/nonblocking/`; no claim is
+made that the paper's exact 20-case Table 12 cohort has been recovered. This
+addition does not complete the planned one-factor extension or the final report.
+
 ## Sections to complete
 
 1. **Introduction and question** — the paper studied in one paragraph, the two

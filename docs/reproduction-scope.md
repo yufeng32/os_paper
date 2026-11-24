@@ -1,6 +1,10 @@
 # Reproduction Scope and Deviations
 
-**Status:** Week 3 update, 2026-11-18. Week 1 was the starting submission `fae5844` (2026-11-07); Week 2 was `e32a676` (2026-11-18, pinned environment and this scope declaration). This is a living document; later weeks append to it rather than rewriting history.
+**Historical status:** Week 3 update, 2026-11-18. Week 1 was the starting submission `fae5844` (2026-11-07); Week 2 was `e32a676` (2026-11-18, pinned environment and this scope declaration). This is a living document; later weeks append to it rather than rewriting history.
+
+**Current addition (2026-11-24):** non-blocking coverage has been added using
+the same pattern-level method. The Week 3 exclusions below are historical;
+the appended non-blocking update and `results/nonblocking/` define the new scope.
 
 ## Why this document exists
 
@@ -29,7 +33,7 @@ The course brief states that "a reduced scale is acceptable if stated" (CS340 Re
 
 C1 carries its own discrepancy: one shared-memory root-cause cell differs by 1 (Table 5), and the exclusive cause of one Kubernetes record is unresolved. Table 6/7 reproduce exactly once the two ambiguous records are assigned explicitly (Docker `moby#25384` → Wait; Kubernetes `kubernetes#11298` → Chan w/). This verifies the published annotations and their arithmetic, not the independent correctness of every label.
 
-## Scale: what is reproduced
+## Scale: Week 3 historical scope
 
 In scope and delivered:
 
@@ -39,7 +43,7 @@ In scope and delivered:
 4. One controlled extension that changes a single factor (Week 4).
 5. A six-section English report with claim verdicts, quantified gaps, a deviations table, a contribution statement and an AI usage statement.
 
-Out of scope, explicitly:
+Out of scope at Week 3, explicitly:
 
 1. The complete commit history of all six studied applications.
 2. Every triggered workload used in the paper.
@@ -99,3 +103,46 @@ Each row is one weekly check at Sunday 23:59.
 ```
 
 `make check` / `make env-record` remain available where `make` is installed. Week 3 logs record the OS, architecture and Go version behind every runtime number.
+
+## Non-blocking update — 2026-11-24
+
+The earlier Week 3 exclusion of Tables 9–12 is superseded for this addition.
+The original blocking measurements remain unchanged.
+
+- **C3, Tables 9–11: supported as an annotation audit.** All 86 non-blocking
+  records are retained; 36, 30 and 42 non-total cells respectively match.
+  Table 11 unions channel/select into Channel and once/go into Misc per record;
+  independent primitive columns overlap. No source label is repaired.
+- **C4, Table 12: partially supported in reconstructed workloads.** All 23
+  workbook-flagged candidates are assessed: 14 show behavioral failures, 8 only
+  target races, and one timer candidate remains unobserved. The three natural
+  batches each report 18/23 candidates within 100 runs. This demonstrates
+  non-blocking failures outside race detection, not the original 10/20 rate.
+
+The natural matrix contains 27,600 executions with zero infrastructure errors
+and 23/23 clean fixed controls (13,800 fixed executions). Mean candidate warning
+coverage is 78.26%, sample SD 0.00 percentage points. An unobserved candidate
+remains visible and is not an established detector miss. Controlled diagnostics
+are stored separately and excluded from these rates.
+
+The 23 flagged records comprise 13 traditional, 4 anonymous-function, 2 shared-library
+and 4 channel cases; the paper uses only one channel case in its 20-case cohort.
+No exact 20-case identity or quantitative equivalence is claimed. Each program
+is an authored pattern reconstruction with source/fix mapping and case-level limits.
+The pending-write-transaction path is reconstructed for BoltDB's merge record;
+the upstream merge diff and regression test were inspected to supplement its empty dataset patch.
+
+Two library/model boundaries matter: the historical context formatter is explicitly
+modeled because Go 1.20 changed that behavior; the AfterFunc/Reset timer candidate
+is not observed on this toolchain. Checkpoint publication uses a scalar length
+over immutable backing rather than a racing multiword slice header. The preliminary
+header version corrupted an output ID; that record was rejected, the whole attempt
+and original source retained, and a fresh full matrix run after 1,200 clean scalar-model
+validation executions. Preliminary results are excluded from final statistics.
+
+The recorded environment is Go 1.20.14 windows/amd64, Python 3.12.13 and
+MinGW-W64 gcc 16.1.0, with a verified portable Go archive. Up to eight same-combination
+processes overlap, each with GOMAXPROCS=2; GORACE removes the exit delay after
+target work joins. These are recorded workload deviations. See `results/nonblocking/`
+for manifests, environment, CSVs and complete hashed log archives. The separate
+Week 4 one-factor extension and final course deliverables remain pending.

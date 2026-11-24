@@ -1,0 +1,113 @@
+{
+  "go_version": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "version"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 0.40203,
+    "stdout": "go version go1.20.14 windows/amd64\n",
+    "stderr": ""
+  },
+  "go_env": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "env",
+      "-json",
+      "GOOS",
+      "GOARCH",
+      "CGO_ENABLED",
+      "CC",
+      "GOROOT",
+      "GOVERSION"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 0.284209,
+    "stdout": "{\n\t\"CC\": \"gcc\",\n\t\"CGO_ENABLED\": \"1\",\n\t\"GOARCH\": \"amd64\",\n\t\"GOOS\": \"windows\",\n\t\"GOROOT\": \"D:\\\\\u5927\u5b66\\\\\u5927\u4e09\\\\opreation_system\\\\paper\\\\os_paper_code\\\\.cache\\\\nonblocking-toolchain\\\\go\",\n\t\"GOVERSION\": \"go1.20.14\"\n}\n",
+    "stderr": ""
+  },
+  "compiler": {
+    "command": [
+      "gcc",
+      "--version"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 0.067396,
+    "stdout": "gcc (MinGW-W64 x86_64-ucrt-mcf-seh, built by Brecht Sanders, r1) 16.1.0\r\nCopyright (C) 2026 Free Software Foundation, Inc.\r\nThis is free software; see the source for copying conditions.  There is NO\r\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\r\n\r\n",
+    "stderr": ""
+  },
+  "positive_build": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "build",
+      "-race",
+      "-o",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\positive.exe",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\positive.go"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 1.260368,
+    "stdout": "",
+    "stderr": ""
+  },
+  "positive_run": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\positive.exe"
+    ],
+    "exit_code": 66,
+    "timeout": false,
+    "elapsed_seconds": 0.084175,
+    "stdout": "",
+    "stderr": "==================\nWARNING: DATA RACE\nRead at 0x00c00001c0e8 by goroutine 7:\n  main.main.func1()\n      D:/\u5927\u5b66/\u5927\u4e09/opreation_system/paper/os_paper_code/.cache/nonblocking-probes/positive.go:3 +0xa8\n\nPrevious write at 0x00c00001c0e8 by goroutine 6:\n  main.main.func1()\n      D:/\u5927\u5b66/\u5927\u4e09/opreation_system/paper/os_paper_code/.cache/nonblocking-probes/positive.go:3 +0xba\n\nGoroutine 7 (running) created at:\n  main.main()\n      D:/\u5927\u5b66/\u5927\u4e09/opreation_system/paper/os_paper_code/.cache/nonblocking-probes/positive.go:3 +0x8d\n\nGoroutine 6 (finished) created at:\n  main.main()\n      D:/\u5927\u5b66/\u5927\u4e09/opreation_system/paper/os_paper_code/.cache/nonblocking-probes/positive.go:3 +0x8d\n==================\nFound 1 data race(s)\n"
+  },
+  "negative_build": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go\\bin\\go.exe",
+      "build",
+      "-race",
+      "-o",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\negative.exe",
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\negative.go"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 1.25513,
+    "stdout": "",
+    "stderr": ""
+  },
+  "negative_run": {
+    "command": [
+      "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-probes\\negative.exe"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "elapsed_seconds": 0.107243,
+    "stdout": "",
+    "stderr": ""
+  },
+  "os": "Windows-11-10.0.26200-SP0",
+  "architecture": "AMD64",
+  "python": "3.12.13 | packaged by Anaconda, Inc. | (main, Mar 19 2026, 20:16:45) [MSC v.1942 64 bit (AMD64)]",
+  "utc_time": "2026-11-24T14:26:48.149707+00:00",
+  "go_executable_sha256": "ac06376133fa2ca0e26232430292aac66119c6e768bef2072bb8f8d6a5293218",
+  "environment": {
+    "GOROOT": "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-toolchain\\go",
+    "GOPATH": "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-gopath",
+    "GOCACHE": "D:\\\u5927\u5b66\\\u5927\u4e09\\opreation_system\\paper\\os_paper_code\\.cache\\nonblocking-gocache",
+    "CGO_ENABLED": "1",
+    "GOMAXPROCS": "2",
+    "GORACE": "exitcode=66 halt_on_error=0 atexit_sleep_ms=0"
+  },
+  "download": {
+    "url": "https://dl.google.com/go/go1.20.14.windows-amd64.zip",
+    "metadata_url": "https://go.dev/dl/?mode=json&include=all",
+    "filename": "go1.20.14.windows-amd64.zip",
+    "size": 114273182,
+    "sha256": "0e0d0190406ead891d94ecf00f961bb5cfa15ddd47499d2649f12eee80aee110",
+    "version": "go1.20.14"
+  }
+}
